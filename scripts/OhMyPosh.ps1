@@ -1,15 +1,14 @@
 # Install OhMyPosh from module PowerShellGet
 
-choco install -y posh-git
 Install-Module –Name PowerShellGet –Force
-Install-Module posh-git -Scope CurrentUser
-Install-Module oh-my-posh -Scope CurrentUser
+Install-Module posh-git -Scope CurrentUser -Force
+Install-Module oh-my-posh -Scope CurrentUser -Force
 
 # Install Powerline Fonts
 
 git clone "https://github.com/powerline/fonts.git"
 cd .\fonts
-.\install.ps1 furamono-, hack-*
+.\install.ps1 furamono-*, hack-*
 
 # Create profile script
 

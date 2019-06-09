@@ -3,7 +3,6 @@
 # Custom Dev environment
 
 Disable-UAC
-$ConfirmPreference = "None" #ensure installing powershell modules don't prompt on needed dependencies
 
 # Set PC name
 $computername = "xps9570"
@@ -85,7 +84,8 @@ choco install -y arduino
 choco install -y jdk8
 choco install -y gradle
 # <broken> choco install -y miktex
-choco install -y cmake --installargs "ADD_CMAKE_TO_PATH=System"
+choco install -y cmake
+# <broken> choco install -y cmake --installargs "ADD_CMAKE_TO_PATH=System"
 RefreshEnv
 
 #-- apps ---
