@@ -63,13 +63,13 @@ Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -Us
 Add-AppxPackage -Path ~/Ubuntu.appx
 
 #--- Debian ---
-Invoke-WebRequest -Uri https://aka.ms/wsl-debian-9 -OutFile ~/debian.appx -UseBasicParsing
+Invoke-WebRequest -Uri https://aka.ms/wsl-debian-gnulinux -OutFile ~/debian.appx -UseBasicParsing
 Add-AppxPackage -Path ~/debian.appx
 
 #--- Docker ---
 Enable-WindowsOptionalFeature -Online -FeatureName containers -All
 RefreshEnv
-choco install -y docker-for-windows
+choco install -y docker-desktop
 
 #--- Browsers ---
 choco install -y googlechrome
