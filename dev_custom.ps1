@@ -85,7 +85,7 @@ choco install -y arduino
 choco install -y jdk8
 choco install -y gradle
 # <broken> choco install -y miktex
-choco install -y cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+choco install -y cmake --installargs "ADD_CMAKE_TO_PATH=System"
 RefreshEnv
 
 #-- apps ---
@@ -101,14 +101,14 @@ choco install -y etcher
 
 #--- Microsoft Studio ---
 choco install -y visualstudio2019community --package-parameters "--passive --locale en-US"
-choco install -y visualstudio2019buildtools
-choco install -y visualstudio2019-workload-vctools
-choco install -y visualstudio2019-workload-nativedesktop
+choco install -y visualstudio2019buildtools --package-parameters "--passive --locale en-US"
+choco install -y visualstudio2019-workload-vctools --package-parameters "--passive"
+choco install -y visualstudio2019-workload-nativedesktop --package-parameters "--passive --productId Microsoft.VisualStudio.Product.Community"
 
 #--- Powershell ---
 choco install -y powershell-core
 choco install -y conemu
-executeScript "OhMyPosh.ps1";
+# executeScript "OhMyPosh.ps1";
 
 #--- Command aliases ---
 Add-Content $PROFILE "`nSet-Alias -Name subl -Value `"C:\Program Files\Sublime Text 3\subl.exe`""
