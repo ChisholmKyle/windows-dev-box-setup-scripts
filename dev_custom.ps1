@@ -3,6 +3,13 @@
 # Custom Dev environment
 
 Disable-UAC
+$ConfirmPreference = "None" #ensure installing powershell modules don't prompt on needed dependencies
+
+# Set PC name
+$computername = "xps"
+if ($env:computername -ne $computername) {
+    Rename-Computer -NewName $computername
+}
 
 # Get the base URI path from the ScriptToCall value
 $bstrappackage = "-bootstrapPackage"
@@ -23,32 +30,47 @@ function executeScript {
 
 #--- Setting up Windows ---
 executeScript "SystemConfiguration.ps1";
+executeScript "SystemPrivacy.ps1";
 executeScript "FileExplorerSettings.ps1";
+executeScript "TaskbarSettings.ps1";
 executeScript "RemoveDefaultApps.ps1";
-executeScript "CommonDevTools.ps1";
-executeScript "HyperV.ps1";
-executeScript "Docker.ps1";
-executeScript "WSL.ps1";
-executeScript "Browsers.ps1";
 
-#--- Common Dev Tools ---
+#--- Git and SSH ---
 choco install -y git --package-parameters="'/GitAndUnixToolsOnPath /WindowsTerminal'"
+RefreshEnv
+#
+#--- Common Dev Tools ---
+choco install -y python2
 choco install -y python
 choco install -y 7zip.install
 choco install -y sysinternals
 
-#--- WSL Tools ---
-Ubuntu1804 run apt install python2.7 python-pip -y
-Ubuntu1804 run apt install python-numpy python-scipy -y
+#--- Hyper-V ---
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V
 
-#--- Web Tools ---
-code --install-extension msjsdiag.debugger-for-chrome
-code --install-extension msjsdiag.debugger-for-edge
+#--- WSL ---
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+RefreshEnv
 
-#--- Nodejs Tools ---
+#--- Ubuntu ---
+Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
+Add-AppxPackage -Path ~/Ubuntu.appx
+
+#--- Debian ---
+Invoke-WebRequest -Uri https://aka.ms/wsl-debian-9 -OutFile ~/debian.appx -UseBasicParsing
+Add-AppxPackage -Path ~/debian.appx
+
+#--- Docker ---
+Enable-WindowsOptionalFeature -Online -FeatureName containers -All
+RefreshEnv
+choco install -y docker-for-windows
+
+#--- Browsers ---
+choco install -y googlechrome
+choco install -y firefox
+
+#--- Nodejs ---
 choco install -y nodejs-lts # Node.js LTS
-choco install -y python2 # Node.js requires Python 2 to build native modules
-choco install -y firacode
 
 #--- Dev Tools ---
 choco install -y jetbrainstoolbox
@@ -59,15 +81,15 @@ choco install -y miktex
 choco install -y cmake --installargs 'ADD_CMAKE_TO_PATH=User'
 
 #-- apps ---
-choco install -y sumatrapdf
+choco install -y sumatrapdf.install
 choco install -y inkscape
 choco install -y blender
 choco install -y dropbox
 choco install -y keepassx
 choco install -y vlc
-choco install -y conemu
 choco install -y vscode
 choco install -y sublimetext3
+choco install -y etcher
 
 #--- Microsoft Studio ---
 choco install -y visualstudio2019community
@@ -75,10 +97,21 @@ choco install -y visualstudio2019buildtools
 choco install -y visualstudio2019-workload-vctools
 choco install -y visualstudio2019-workload-nativedesktop
 
-write-host "Finished installation"
+#--- Powershell ---
+choco install -y powershell-core
+choco install -y conemu
+executeScript "OhMyPosh.ps1";
 
-#--- Choco Utility ---
-choco install -y choco-cleaner
+#--- Command aliases ---
+Add-Content $PROFILE "`nSet-Alias -Name subl -Value `"C:\Program Files\Sublime Text 3\subl.exe`""
+Add-Content $PROFILE "`nSet-Alias -Name which -Value get-command"
+
+#--- vscode extensions ---
+choco install -y vscode-docker
+code --install-extension msjsdiag.debugger-for-chrome
+code --install-extension msjsdiag.debugger-for-edge
+
+write-host "Finished installation"
 
 Enable-UAC
 Enable-MicrosoftUpdate
