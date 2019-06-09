@@ -6,7 +6,7 @@ Disable-UAC
 $ConfirmPreference = "None" #ensure installing powershell modules don't prompt on needed dependencies
 
 # Set PC name
-$computername = "xps"
+$computername = "xps9570"
 if ($env:computername -ne $computername) {
     Rename-Computer -NewName $computername
 }
@@ -30,15 +30,20 @@ function executeScript {
 
 #--- Setting up Windows ---
 executeScript "SystemConfiguration.ps1";
-executeScript "SystemPrivacy.ps1";
 executeScript "FileExplorerSettings.ps1";
+executeScript "SystemPrivacy.ps1";
 executeScript "TaskbarSettings.ps1";
 executeScript "RemoveDefaultApps.ps1";
 
 #--- Git and SSH ---
 choco install -y git --package-parameters="'/GitAndUnixToolsOnPath /WindowsTerminal'"
 RefreshEnv
-#
+
+# optionally configure git and ssh
+# git config --global user.name "FIRST_NAME LAST_NAME"
+# git config --global user.email "MY_NAME@example.com"
+# ssh-keygen -t rsa -b 4096 -q -N ""
+
 #--- Common Dev Tools ---
 choco install -y python2
 choco install -y python
