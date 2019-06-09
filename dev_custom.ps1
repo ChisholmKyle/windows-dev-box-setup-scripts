@@ -74,6 +74,7 @@ choco install -y docker-desktop
 #--- Browsers ---
 choco install -y googlechrome
 choco install -y firefox
+choco install -y vivaldi
 
 #--- Nodejs ---
 choco install -y nodejs-lts # Node.js LTS
@@ -83,8 +84,9 @@ choco install -y jetbrainstoolbox
 choco install -y arduino
 choco install -y jdk8
 choco install -y gradle
-choco install -y miktex
-choco install -y cmake --installargs 'ADD_CMAKE_TO_PATH=User'
+# <broken> choco install -y miktex
+choco install -y cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+RefreshEnv
 
 #-- apps ---
 choco install -y sumatrapdf.install
@@ -98,7 +100,7 @@ choco install -y sublimetext3
 choco install -y etcher
 
 #--- Microsoft Studio ---
-choco install -y visualstudio2019community
+choco install -y visualstudio2019community --package-parameters "--passive --locale en-US"
 choco install -y visualstudio2019buildtools
 choco install -y visualstudio2019-workload-vctools
 choco install -y visualstudio2019-workload-nativedesktop
