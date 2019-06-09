@@ -1,5 +1,9 @@
 #--- Configuring Windows properties ---
 
+# System-level configuration
+Disable-BingSearch
+Disable-GameBarTips
+
 #-- taskbar ---
 Set-TaskbarOptions -Size Small -Dock Bottom -Combine Full -Lock
 
