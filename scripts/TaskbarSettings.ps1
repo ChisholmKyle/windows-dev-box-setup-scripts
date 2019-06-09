@@ -5,7 +5,7 @@ Disable-BingSearch
 Disable-GameBarTips
 
 #-- taskbar ---
-Set-TaskbarOptions -Size Small -Dock Bottom -Combine Full -Lock
+Set-TaskbarOptions -Size Small -Dock Bottom -Combine Always -Lock
 
 # Start Menu: Disable Bing Search Results
 Set-ItemProperty -Path HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search -Name BingSearchEnabled -Type DWord -Value 0

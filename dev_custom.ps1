@@ -51,7 +51,8 @@ choco install -y 7zip.install
 choco install -y sysinternals
 
 #--- Hyper-V ---
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V
+Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Hyper-V -All
+RefreshEnv
 
 #--- WSL ---
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux

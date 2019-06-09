@@ -33,7 +33,7 @@ Close and reopen a PowerShell console as Administrator and install boxstarter
 
 ### Install Boxtsarter Packages
 
-    Install-BoxstarterPackage -PackageName https://raw.githubusercontent.com/ChisholmKyle/windows-dev-box-setup-scripts/master/dev_custom.ps1
+    Install-BoxstarterPackage -PackageName https://raw.githubusercontent.com/ChisholmKyle/windows-dev-box-setup-scripts/master/dev_custom.ps1 -DisableReboots
 
 ### Set Default Execution Policy
 
