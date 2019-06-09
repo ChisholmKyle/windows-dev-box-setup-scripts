@@ -6,12 +6,16 @@ RefreshEnv
 # TODO: Move this to choco install once --root is included in that package
 Invoke-WebRequest -Uri https://aka.ms/wsl-ubuntu-1804 -OutFile ~/Ubuntu.appx -UseBasicParsing
 Add-AppxPackage -Path ~/Ubuntu.appx
-RefreshEnv
 
 # run the distro once and have it install locally with root user, unset password
-Ubuntu1804 install --root
-Ubuntu1804 run apt update
-Ubuntu1804 run apt upgrade -y
+# RefreshEnv
+# Ubuntu1804 install --root
+# Ubuntu1804 run apt-get update
+# Ubuntu1804 run apt-get upgrade -y
+
+# Install Debian Store app
+Invoke-WebRequest -Uri https://aka.ms/wsl-debian-9 -OutFile ~/debian.appx -UseBasicParsing
+Add-AppxPackage -Path ~/debian.appx
 
 <#
 NOTE: Other distros can be scripted the same way for example:
